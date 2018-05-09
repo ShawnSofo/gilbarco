@@ -21,10 +21,12 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class CurrentTimeServiceTests {
 
     @Autowired
@@ -42,7 +44,6 @@ public class CurrentTimeServiceTests {
      */
     @Test
     public void testReturnTimestampInstance() throws JSONException {
-
         assertThatCode(() -> {
             this.restApi.getForEntity(this.getUrl(), Timestamp.class);
         }).doesNotThrowAnyException();
