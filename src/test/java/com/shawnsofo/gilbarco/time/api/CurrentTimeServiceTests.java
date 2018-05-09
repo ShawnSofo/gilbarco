@@ -1,9 +1,11 @@
+/**
+ * Unit test for the time service Rest API
+ */
 package com.shawnsofo.gilbarco.time.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.shawnsofo.gilbarco.time.entity.Timestamp;
@@ -35,6 +37,9 @@ public class CurrentTimeServiceTests {
         return "http://localhost:" + this.port + "/now/est";
     }
 
+    /**
+     * must returns a proper timestamp JSON Object
+     */
     @Test
     public void testReturnTimestampInstance() throws JSONException {
 
@@ -49,12 +54,18 @@ public class CurrentTimeServiceTests {
         assertThat(json.getLong("calls")).isNotNull().isGreaterThan(0L);
     }
 
+    /**
+     * must return 200 code
+     */
     @Test
     public void testStatusMustBeOK() {
         ResponseEntity<String> resp = this.restApi.getForEntity(this.getUrl(), String.class);
         assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
+    /**
+     * Must increments the number of calls to the service
+     */
     @Test
     public void testMustIncrementNumberOfCalls() {
         Supplier<Long> numberOfCalls = () -> this.restApi.getForObject(this.getUrl(), Timestamp.class).getCalls();
