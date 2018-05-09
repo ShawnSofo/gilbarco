@@ -45,7 +45,7 @@ public class Timestamp {
     /**
      * returns the current time in ISO 8601
      * 
-     * also takes into account of Daylight saving time
+     * also takes into account the Daylight saving time
      */
     @JsonProperty(access = Access.READ_ONLY)
     public String getTimestamp() {
